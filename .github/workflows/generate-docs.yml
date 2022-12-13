@@ -1,4 +1,4 @@
-name: Create Docs and PR
+name: Create docs & create PR
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the main branch
@@ -34,4 +34,4 @@ jobs:
           title: "[Ponicode] Docstrings created"
           body: |
             ## ⭐️ Ponicode report ⭐️
-            Ponicode found **undocumented functions** in your code, and auto-generated docstrings for you.
+            Ponicode found **undocumented functions** in your code, and auto-generated docstrings for you
