@@ -1,18 +1,14 @@
-name: misspell
-
-on:
-  - push
-
+name: Check for misspells
+on: [pull_request]
 jobs:
-  build:
-
+  misspell:
+    name: runner / misspell
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - uses: sobolevn/misspell-fixer-action@master
-    - uses: peter-evans/create-pull-request@v2.4.4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: 'Fixes by misspell-fixer'
-        title: 'Typos fix by misspell-fixer'
+      - name: Check out code.
+        uses: actions/checkout@v2
+      - name: misspell
+        uses: reviewdog/action-misspell@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          locale: "US"
