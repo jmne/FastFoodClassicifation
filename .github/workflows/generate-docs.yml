@@ -5,6 +5,8 @@ name: Create docs & create PR
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [custom]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
