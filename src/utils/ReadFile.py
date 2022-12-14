@@ -1,16 +1,26 @@
-# read folder with images
 import os
+from os import listdir
+import matplotlib.image as mpimg
+import numpy as np
 
 
-def read_folder():
+def read_images():
     """Read folder with images
 
     Returns:
         array: array with folder names
     """
-    folders = []
-    for file in os.listdir("resources/"):
-        if os.path.isdir(os.path.join("resources/", file)):
-            folders.append(file)
-    return folders
+
+    test_images = []
+
+    # get the path/directory
+    folder_dir = "../resources/Test"
+    for folder in listdir(folder_dir):
+        print(folder)
+        for file in listdir(folder_dir + "/" + folder):
+            test_images.append(mpimg.imread(folder_dir + "/" + folder + "/" + file))
+    print(test_images)
+    return test_images
+
+
         
