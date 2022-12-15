@@ -8,6 +8,11 @@ os.environ["SM_FRAMEWORK"] = "tf.keras"
 
 
 def model():
+    """
+    Run the model.
+
+    Args:
+    """
     image_size = (256, 256)
     batch_size = 25
 
@@ -91,6 +96,13 @@ def model():
 
 
 def make_model(input_shape, num_classes):
+    """
+    Create a Keras model.
+
+    Args:
+        input_shape: write your description
+        num_classes: write your description
+    """
     inputs = keras.Input(shape=input_shape)
 
     # Entry block

@@ -5,6 +5,12 @@ import numpy as np
 
 
 def read_images(read_from_processed=False):
+    """
+    Read images from folder
+
+    Args:
+        read_from_processed: write your description
+    """
     test_images = []
     train_images = []
     valid_images = []
