@@ -32,9 +32,10 @@ def read_images(read_from_processed=False):
             if _dir == "processed":
                 continue
             for folder in listdir(folder_dir + "/" + _dir):
+                print(folder)
                 label = folder
                 for file in listdir(folder_dir + "/" + _dir + "/" + folder):
-                    if (folder_dir + "/" + _dir + "/" + folder + "/" + file).endswith(".jpeg"):
+                    if (folder_dir + "/" + _dir + "/" + folder + "/" + file).endswith(".jpeg" or ".jpg" or ".png"):
                         if _dir == "test":
                             test_images.append(mpimg.imread(folder_dir + "/" + _dir + "/" + folder + "/" + file))
                             y_test.append(label)
