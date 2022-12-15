@@ -36,7 +36,11 @@ def read_images(read_from_processed=False):
                             valid_images.append(mpimg.imread(folder_dir + "/" + _dir + "/" + folder + "/" + file))
                     else:
                         invalid += 1
+                        os.remove(folder_dir + "/" + _dir + "/" + folder + "/" + file)
         print("Invalid images: ", invalid)
+
+        if not os.path.isdir('../resources/processed'):
+            os.mkdir('../resources/processed')
 
         np.save("../resources/processed/test_images.npy", np.asarray(test_images, dtype=object))
         np.save("../resources/processed/train_images.npy", np.asarray(train_images, dtype=object))

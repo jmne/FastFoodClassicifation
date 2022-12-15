@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 from models import Model1
-from src.utils import ReadFile
+from utils import ReadFile
 import time
 
 
@@ -11,6 +11,7 @@ def main():
     Args:
     """
     start = time.time()
+    print("Starting reading images")
     test_images, train_images, valid_images = ReadFile.read_images(
         read_from_processed=False)  # you need to process them once before!
     print("Train images: ", len(train_images))
@@ -23,7 +24,10 @@ def main():
         plt.axis("off")
     plt.show()
 
-    # Model1.model()
+    print("Time elapsed: ", time.time() - start)
+    print("Starting model...")
+
+    Model1.model()
 
     print("Compute Time: ", round(time.time() - start), "s")
 

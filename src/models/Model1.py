@@ -1,10 +1,12 @@
+import os
 import matplotlib.pyplot as plt
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ["SM_FRAMEWORK"] = "tf.keras"
 import tensorflow as tf
 from tensorflow import keras
 from keras import layers
-import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-os.environ["SM_FRAMEWORK"] = "tf.keras"
 
 
 def model():
@@ -14,10 +16,10 @@ def model():
     Args:
     """
     image_size = (256, 256)
-    batch_size = 25
+    batch_size = 50
 
     train_ds, val_ds = tf.keras.preprocessing.image_dataset_from_directory(
-        "../resources/train",
+        "../resources/valid",
         validation_split=0.2,
         subset="both",
         seed=1337,
@@ -67,7 +69,7 @@ def model():
     model = make_model(input_shape=image_size + (3,), num_classes=2)
     # keras.utils.plot_model(model, show_shapes=True)
 
-    epochs = 15
+    epochs = 5
 
     callbacks = [
         keras.callbacks.ModelCheckpoint("save_at_{epoch}.keras"),

@@ -209,3 +209,4 @@ fabric.properties
 /resources/processed/test_images.npy
 /resources/processed/train_images.npy
 /resources/processed/valid_images.npy
+/.idea/sshConfigs.xml
