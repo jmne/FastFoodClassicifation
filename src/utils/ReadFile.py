@@ -10,7 +10,7 @@ def read_images(read_from_processed=False):
     valid_images = []
     invalid = 0
 
-    if read_from_processed:
+    if os.path.isdir('../resources/processed') and read_from_processed:
         test_images = np.load("../resources/processed/test_images.npy", allow_pickle=True)
         train_images = np.load("../resources/processed/train_images.npy", allow_pickle=True)
         valid_images = np.load("../resources/processed/valid_images.npy", allow_pickle=True)
