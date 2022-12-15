@@ -13,7 +13,7 @@ def main():
     start = time.time()
     print("Starting reading images")
     test_images, train_images, valid_images, y_test, y_train, y_valid = ReadFile.read_images(
-        read_from_processed=False)  # you need to process them once before!
+        read_from_processed=True)  # you need to process them once before!
     print("Train images: ", len(train_images))
     print("Valid images: ", len(valid_images))
     print("Test images: ", len(test_images))

@@ -66,8 +66,8 @@ def model():
     train_ds = train_ds.prefetch(tf.data.AUTOTUNE)
     val_ds = val_ds.prefetch(tf.data.AUTOTUNE)
 
-    model = make_model(input_shape=image_size + (3,), num_classes=2)
-    # keras.utils.plot_model(model, show_shapes=True)
+    model = make_model(input_shape=image_size + (3,), num_classes=10)
+    keras.utils.plot_model(model, show_shapes=True)
 
     epochs = 5
 
@@ -94,6 +94,9 @@ def model():
 
     predictions = model.predict(img_array)
     score = float(predictions[0])
+    print(predictions)
+    model.summary()
+    print(model.summary())
     print(f"This image is {100 * (1 - score):.2f}% cat and {100 * score:.2f}% dog.")
 
 
