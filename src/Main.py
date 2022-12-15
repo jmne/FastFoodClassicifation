@@ -5,6 +5,11 @@ import time
 
 
 def main():
+    """
+    Example application that processes a set of images.
+
+    Args:
+    """
     start = time.time()
     test_images, train_images, valid_images = ReadFile.read_images(
         read_from_processed=False)  # you need to process them once before!
