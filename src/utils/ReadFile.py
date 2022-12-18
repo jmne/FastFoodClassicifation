@@ -1,5 +1,7 @@
 import os
 from os import listdir
+from inspect import getsourcefile
+from os.path import abspath
 import matplotlib.image as mpimg
 import numpy as np
 
@@ -18,6 +20,12 @@ def read_images(read_from_processed=False):
     y_train = []
     y_valid = []
     invalid = 0
+
+    # Find src directory (assumes that this file is within src directory)
+    src_dir = abspath(getsourcefile(lambda:0))
+    while not src_dir.endswith("src"):
+        src_dir = src_dir[:src_dir.rfind("\\")]
+    os.chdir(src_dir)
 
     if os.path.isdir('../resources/processed') and read_from_processed:
         test_images = np.load("../resources/processed/test_images.npy", allow_pickle=True)
