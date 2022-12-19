@@ -13,14 +13,17 @@ def resize(images, width, height):
     for index, image in enumerate(images):
         # Convert np array to PIL image (for resizing / cropping)
         image = Image.fromarray(image)
-        # Enlarge image if it's resolution is less than the desired width/height
-        width_ratio = math.ceil(width / image.width)
-        height_ratio = math.ceil(height / image.height)
-        if (image.height < height) or (image.width < width):
-            if (height_ratio > width_ratio):
-                image.resize((image.width * height_ratio, image.height * height_ratio))
-            else:
-                image.resize((image.width * width_ratio, image.height * width_ratio))
+        # Enlarge/compress image so that the bottleneck dimension matches the desired dimension
+        width_ratio = width / image.width
+        height_ratio = height / image.height
+        if (height_ratio > width_ratio):
+            new_height = height
+            new_width = round(image.width * height_ratio)
+            image = image.resize((new_width, new_height))
+        else:
+            new_height = round(image.height * width_ratio)
+            new_width = width
+            image = image.resize((new_width, new_height))
         # Crop image to desired size
         left = (image.width - width) // 2
         upper = (image.height - height) // 2
@@ -73,10 +76,13 @@ def main():
     plt.show()
 
     print("Time elapsed: ", time.time() - start)
-    print("Starting model...")
+    
+    # Preprocessing
+    IM_WIDTH, IM_HEIGHT = (64, 64)
+    print("Converting images to size {} x {}...".format(IM_WIDTH, IM_HEIGHT))
 
     start = time.time()
-    train_images = resize(train_images, 64, 64)
+    train_images = resize(train_images, IM_WIDTH, IM_HEIGHT)
     for i in range(9):
         ax = plt.subplot(3, 3, i + 1)
         plt.imshow(train_images[i])
