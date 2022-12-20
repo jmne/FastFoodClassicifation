@@ -1,7 +1,8 @@
 from matplotlib import pyplot as plt
-from models import Model1
+from models import Model1, Model2
 from utils import ReadFile
 import time
+from random import randrange
 
 
 def main():
@@ -11,24 +12,26 @@ def main():
     Args:
     """
     start = time.time()
-    print("Starting reading images")
+    print("Start reading images")
     test_images, train_images, valid_images, y_test, y_train, y_valid = ReadFile.read_images(
-        read_from_processed=False)  # you need to process them once before!
+        read_from_processed=True)  # you need to process them once before!
     print("Train images: ", len(train_images))
     print("Valid images: ", len(valid_images))
     print("Test images: ", len(test_images))
     plt.figure(figsize=(10, 10))
     for i in range(9):
         ax = plt.subplot(3, 3, i + 1)
-        plt.imshow(train_images[i])
+        rand = randrange(len(train_images)-1)
+        plt.imshow(train_images[rand])
         plt.axis("off")
-        plt.title(y_train[i])
+        plt.title(y_train[rand])
     plt.show()
 
-    print("Time elapsed: ", time.time() - start)
+    print("Time elapsed: ", round(time.time() - start), "s")
     print("Starting model...")
 
-    Model1.model()
+    # Model1.model()
+    Model2.model()
 
     print("Compute Time: ", round(time.time() - start), "s")
 
