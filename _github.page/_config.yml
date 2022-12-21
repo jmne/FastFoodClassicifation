@@ -1,6 +1,6 @@
-title: Minimal theme
+title: Fast Food Classification | LTU
 logo: /assets/img/logo.png
-description: Minimal is a theme for GitHub Pages.
+description: This project is about classifying fast food images using deep learning. The dataset is from Kaggle. The model is trained using the BiT-M R50x1 model by Google Research Team.
 show_downloads: true
 google_analytics:
 theme: jekyll-theme-minimal
