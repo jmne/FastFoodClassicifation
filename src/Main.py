@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
 from models import Model1, Model2
+from src.models import Model3
 from utils import ReadFile
 import time
 from random import randrange
@@ -31,7 +32,8 @@ def main():
     print("Starting model...")
 
     # Model1.model()
-    Model2.model()
+    # Model2.model()
+    Model3.model()
 
     print("Compute Time: ", round(time.time() - start), "s")
 

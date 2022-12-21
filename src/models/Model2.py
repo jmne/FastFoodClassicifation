@@ -70,7 +70,7 @@ def model():
 
                 print("File: " + filename + "                ", end='\r')
 
-        # Splitting file names and storing the labels for image in list
+            # Splitting file names and storing the labels for image in list
             test_labels.append(folder)
 
             # Resize all images to a specific shape
@@ -120,7 +120,7 @@ def model():
     print("Training model...")
 
     # Training the model
-    history = _model.fit(x_train, y_train, epochs=50, batch_size=70, validation_data=(x_val, y_val))
+    history = _model.fit(x_train, y_train, epochs=50, batch_size=40, validation_data=(x_val, y_val))
 
     # summarize history for accuracy
     plt.plot(history.history['acc'])
