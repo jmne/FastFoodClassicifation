@@ -210,3 +210,14 @@ fabric.properties
 /resources/processed/train_images.npy
 /resources/processed/valid_images.npy
 /.idea/sshConfigs.xml
+/.idea/.gitignore
+/.idea/deployment.xml
+/src/Fast-Food-Classification-BiT.h5
+/.idea/FastFoodClassification.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/other.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/rGraphicsSettings.xml
+/.idea/rSettings.xml
+/.idea/vcs.xml
