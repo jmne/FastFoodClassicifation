@@ -14,6 +14,11 @@ np.random.seed(1)
 
 
 def model():
+    """
+    This function creates a model from the training data.
+
+    Args:
+    """
     # Processing training data
     # -> appending images in a list 'train_images'
     # -> appending labels in a list 'train_labels'

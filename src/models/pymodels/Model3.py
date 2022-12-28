@@ -32,6 +32,17 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
 
 def show_images(data, classes, plot_num, _model=None, grid=None, SIZE=(25, 25)):
+    """
+    Shows images and their labels.
+
+    Args:
+        data: write your description
+        classes: write your description
+        plot_num: write your description
+        _model: write your description
+        grid: write your description
+        SIZE: write your description
+    """
     # Plot Configurations
     if grid is None:
         grid = [5, 6]
@@ -76,6 +87,11 @@ def show_images(data, classes, plot_num, _model=None, grid=None, SIZE=(25, 25)):
 
 
 def model():
+    """
+    Run the model.
+
+    Args:
+    """
     # Specify the root path.
     train_path = '../resources/train/'
     valid_path = '../resources/valid/'
