@@ -209,6 +209,9 @@ fabric.properties
 /resources/processed/test_images.npy
 /resources/processed/train_images.npy
 /resources/processed/valid_images.npy
+/resources/processed/test_labels.npy
+/resources/processed/train_labels.npy
+/resources/processed/valid_labels.npy
 /.idea/sshConfigs.xml
 /.idea/.gitignore
 /.idea/deployment.xml
