@@ -88,4 +88,4 @@ This project is licensed under the GNU License - see the [LICENSE](https://githu
 [1]: https://github.com/google-research/big_transfer <br>
 [2]: https://arxiv.org/pdf/1912.11370.pdf <br>
 [3]: https://www.arxiv-vanity.com/papers/1603.05027/ <br>
-[4]: https://www.kaggle.com/datasets/utkarshsaxenadn/fast-food-classification-dataset <br>
+[4]: https://www.kaggle.com/datasets/utkarshsaxenadn/fast-food-classification-dataset <br
