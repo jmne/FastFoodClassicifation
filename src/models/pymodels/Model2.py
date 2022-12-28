@@ -1,162 +1,136 @@
-# Importing modules
+from utils import ReadFile
+
+# Common
+import time
+from matplotlib import pyplot as plt
 import numpy as np
+import math
+from PIL import Image
 import pandas as pd
-import os
-import sys
-import matplotlib.pyplot as plt
-import cv2
-from keras.layers import Dense, Conv2D, Flatten, MaxPool2D
-from keras.models import Sequential
+import seaborn as sns
 
-from sklearn.model_selection import train_test_split
+# Model
+import tensorflow as tf
+from tensorflow import keras
+from sklearn.metrics import confusion_matrix
 
-np.random.seed(1)
+# Given a numpy array of images, resizes all of the images to the specified width and height and returns the standardized images
+def resize(images, width, height):
+    # Initialize new np array for resized images
+    new_images = np.empty((images.shape[0], height, width, 3), dtype=np.uint8) # Assumes RGB format
+    for index, image in enumerate(images):
+        # Convert np array to PIL image (for resizing / cropping)
+        image = Image.fromarray(image)
+        # Enlarge/compress image so that the bottleneck dimension matches the desired dimension
+        width_ratio = width / image.width
+        height_ratio = height / image.height
+        if (height_ratio > width_ratio):
+            new_height = height
+            new_width = round(image.width * height_ratio)
+            image = image.resize((new_width, new_height))
+        else:
+            new_height = round(image.height * width_ratio)
+            new_width = width
+            image = image.resize((new_width, new_height))
+        # Crop image to desired size
+        left = (image.width - width) // 2
+        upper = (image.height - height) // 2
+        right = left + width
+        lower = upper + height
+        image = image.crop((left, upper, right, lower))
+        new_images[index] = np.asarray(image)
 
+    return new_images
 
+# Resizes the images and normalizes them
+def preprocess(images, width, height):
+    # Preprocessing: Resize
+    print("Converting test images to size {} x {}...".format(width, height))
+    start = time.time()
+    images = resize(images, width, height)
+    print("Time elapsed: ", time.time() - start)
+    # Preprocessing: Normalize
+    images = images / 255.0
+    return images
+
+# The model
 def model():
-    """
-    This function creates a model from the training data.
+    # Specify size of image data to be inputted into model
+    IM_WIDTH, IM_HEIGHT = (100, 100)
 
-    Args:
-    """
-    # Processing training data
-    # -> appending images in a list 'train_images'
-    # -> appending labels in a list 'train_labels'
+    # Read in and load the training and testing images, along with their labels
+    start = time.time()
+    print("Starting reading images")
+    test_images, train_images, valid_images, test_labels, train_labels, valid_labels = ReadFile.read_images(
+        read_from_processed=True)  # you need to process them once before!
+    print("Train images: ", len(train_images))
+    print("Valid images: ", len(valid_images))
+    print("Test images: ", len(test_images))
 
-    train_images = []
-    train_labels = []
-    shape = (200, 200)
-    train_path = '../resources/train'
-
-    print("Processing training data..")
-
-    for folder in os.listdir(train_path):
-        for filename in os.listdir(train_path + '/' + folder):
-            if filename.split('.')[1] == 'jpeg':
-                img = cv2.imread(train_path + "/" + folder + "/" + filename)
-
-                print("File: " + filename + "                ", end='\r')
-
-                # Splitting file names and storing the labels for image in list
-                train_labels.append(folder)
-
-                # Resize all images to a specific shape
-                img = cv2.resize(img, shape)
-
-                train_images.append(img)
-
-    print("\n")
-
-    # Converting labels into One Hot encoded sparse matrix
-    train_labels = pd.get_dummies(train_labels).values
-
-    # Converting train_images to array
-    train_images = np.array(train_images)
-
-    # Splitting Training data into train and validation dataset
-    x_train, x_val, y_train, y_val = train_test_split(train_images, train_labels, random_state=1)
-
-    # Processing testing data -> appending images in a list 'test_images' -> appending labels in a list 'test_labels'
-    # The test data contains labels as well also we are appending it to a list, but we aren't going to use it while
-    # training.
-
-    test_images = []
-    test_labels = []
-    shape = (200, 200)
-
-    test_path = '../resources/test'
-
-    print("Processing test data..")
-
-    for folder in os.listdir(test_path):
-        for filename in os.listdir(test_path + '/' + folder):
-            if filename.split('.')[1] == 'jpeg':
-                img = cv2.imread(test_path + "/" + folder + "/" + filename)
-
-                print("File: " + filename + "                ", end='\r')
-
-            # Splitting file names and storing the labels for image in list
-            test_labels.append(folder)
-
-            # Resize all images to a specific shape
-            img = cv2.resize(img, shape)
-
-            test_images.append(img)
-
-    print("\n")
-
-    # Converting test_images to array
-    test_images = np.array(test_images)
-
-    # Visualizing Training data
-    print(train_labels[0])
-    plt.imshow(train_images[0])
-
-    # Visualizing Training data
-    print(train_labels[-1])
-    plt.imshow(train_images[-1])
-
-    plt.plot()
-
-    # Creating a Sequential model
-    _model = Sequential()
-    _model.add(Conv2D(kernel_size=(3, 3), filters=32, activation='tanh', input_shape=(200, 200, 3,)))
-    _model.add(Conv2D(filters=30, kernel_size=(3, 3), activation='tanh'))
-    _model.add(MaxPool2D(2, 2))
-    _model.add(Conv2D(filters=30, kernel_size=(3, 3), activation='tanh'))
-    _model.add(MaxPool2D(2, 2))
-    _model.add(Conv2D(filters=30, kernel_size=(3, 3), activation='tanh'))
-
-    _model.add(Flatten())
-
-    _model.add(Dense(20, activation='relu'))
-    _model.add(Dense(15, activation='relu'))
-    _model.add(Dense(10, activation='softmax'))
-
-    _model.compile(
-        loss='categorical_crossentropy',
-        metrics=['acc'],
-        optimizer='adam'
-    )
-
-    # Model Summary
-    _model.summary()
-
-    print("Training model...")
-
-    # Training the model
-    history = _model.fit(x_train, y_train, epochs=50, batch_size=40, validation_data=(x_val, y_val))
-
-    # summarize history for accuracy
-    plt.plot(history.history['acc'])
-    plt.plot(history.history['val_acc'])
-    plt.title('model accuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
+    plt.figure(figsize=(10, 10))
+    for i in range(9):
+        ax = plt.subplot(3, 3, i + 1)
+        plt.imshow(train_images[i])
+        plt.axis("off")
+        plt.title(train_labels[i])
     plt.show()
 
-    # summarize history for loss
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('model loss')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
+    print("Time elapsed: ", time.time() - start)
+
+    # Create a list of all the unique labels
+    labels = list(set(train_labels))
+        
+    # Build np arrays for the y data (integer values representing labels)
+    y_train = np.asarray([labels.index(x) for x in train_labels])
+    y_test = np.asarray([labels.index(x) for x in test_labels])
+    y_valid = np.asarray([labels.index(x) for x in valid_labels])
+
+    # Preprocess training and testing data
+    x_train_tf = preprocess(train_images, IM_WIDTH, IM_HEIGHT)
+    x_test_tf = preprocess(test_images, IM_WIDTH, IM_HEIGHT)
+
+    # Creating the model
+    lenet5 = keras.Sequential([
+        keras.layers.Conv2D(input_shape=(IM_WIDTH, IM_HEIGHT, 3), filters=6, kernel_size=5, strides=1, padding="same", activation=tf.nn.relu),
+        keras.layers.AveragePooling2D(pool_size=2, strides=2),
+        keras.layers.Conv2D(16, kernel_size=5, strides=1, padding="same", activation=tf.nn.relu),
+        keras.layers.AveragePooling2D(pool_size=2, strides=2),
+        keras.layers.Flatten(),
+        keras.layers.Dense(120, activation=tf.nn.relu),
+        keras.layers.Dense(84, activation=tf.nn.relu),
+        keras.layers.Dense(10, activation=tf.nn.softmax)
+    ])
+    lenet5.compile(loss=keras.losses.categorical_crossentropy,
+                  optimizer='adam',
+                  metrics=['acc'])
+    lenet5.summary()
+
+    # Train the model
+    print("Starting training...")
+    start = time.time()
+    y_train_tf = keras.utils.to_categorical(y_train) # Convert labels from integers to binary np arrays
+
+    print(x_train_tf.shape)
+    print(y_train_tf.shape)
+
+    lenet5.fit(x_train_tf, y_train_tf, epochs=20)
+    lenet5.save('./jupyter/lenet5.h5')
+    print("Completed in {} seconds".format(time.time() - start))
+
+    # Predict images using the model and output confusion matrix
+    predictions = lenet5.predict(x_test_tf)
+    preds = [np.argmax(x) for x in predictions]
+    correct = 0
+    for i, pred in enumerate(preds):
+        if pred == y_test[i]:
+            correct += 1
+    print('Test Accuracy of the model on the {} test images: {}% with TensorFlow'.format(x_test_tf.shape[0],100 * correct/x_test_tf.shape[0]))
+    
+    matrix = confusion_matrix(y_test, preds)
+    sns.heatmap(matrix, annot=True)
+    plt.title('Food Confusion Matrix')
+    plt.xlabel('Predicted class')
+    plt.ylabel('True class')
     plt.show()
-
-    # Evaluating model on validation data
-    evaluate = _model.evaluate(x_val, y_val)
-    print(evaluate)
-
-    # Testing predictions and the actual label
-    check_image = test_images[0:1]
-    check_label = test_labels[0:1]
-
-    predict = _model.predict(np.array(check_image))
-
-    output = {0: 'Baked Potato', 1: 'Burger', 2: 'Crispy Chicken', 3: 'Donut', 4: 'Fries', 5: 'Hot Dog', 6: 'Pizza',
-              7: 'Sandwich', 8: 'Taco', 9: 'Taquito'}
-
-    print("Actual :- ", check_label[0])
-    print("Predicted :- ", output[np.argmax(predict)])
+    for i in range(len(labels)):
+        print("{}: {}".format(i, labels[i]))
