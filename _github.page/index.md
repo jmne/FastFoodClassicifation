@@ -1,247 +1,91 @@
-Insert markdown docs here..
+# FastFoodClassicifation
+[![](https://img.shields.io/github/issues/jmne/FastFoodClassification?style=flat-square)](https://github.com/jmne/FastFoodClassification/issues)
+[![](https://img.shields.io/github/issues-pr/jmne/FastFoodClassification?style=flat-square)](https://github.com/jmne/FastFoodClassification/pulls)
+[![](https://img.shields.io/github/license/jmne/FastFoodClassification?style=flat-square)](https://github.com/jmne/FastFoodClassification/blob/main/LICENSE)
+[![](https://img.shields.io/github/languages/code-size/jmne/FastFoodClassification?style=flat-square)](https://github.com/jmne/FastFoodClassification/tree/main/src)<br>
+[![Generate Documentation](https://github.com/jmne/FastFoodClassification/actions/workflows/generate-docs.yml/badge.svg)](https://github.com/jmne/FastFoodClassification/actions/workflows/generate-docs.yml)
+[![Check Misspells](https://github.com/jmne/FastFoodClassification/actions/workflows/misspell.yml/badge.svg)](https://github.com/jmne/FastFoodClassification/actions/workflows/misspell.yml)
 
----
-__Advertisement :)__
+Image classification of Fast Food dishes with CNN and BiT-M-R50x1.
 
-- __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image
-  resize in browser.
-- __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly
-  i18n with plurals support and easy syntax.
+### Table of Contents
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Disclaimer](#disclaimer)
+- [Usage](#usage)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [References](#references)
 
-You will like those projects!
+### Introduction
+Our idea is to identify fast food dishes from pictures.
+The Fast Food Classification data set we use contains images of different types of fast food.
 
----
+The dataset we used can be found [here](https://www.kaggle.com/datasets/utkarshsaxenadn/fast-food-classification-dataset).
 
-# h1 Heading 8-)
-## h2 Heading
-### h3 Heading
-#### h4 Heading
-##### h5 Heading
-###### h6 Heading
-
-
-## Horizontal Rules
-
-___
-
----
-
-***
-
-
-## Typographic replacements
-
-Enable typographer option to see result.
-
-(c) (C) (r) (R) (tm) (TM) (p) (P) +-
-
-test.. test... test..... test?..... test!....
-
-!!!!!! ???? ,,  -- ---
-
-"Smartypants, double quotes" and 'single quotes'
-
-
-## Emphasis
-
-**This is bold text**
-
-__This is bold text__
-
-*This is italic text*
-
-_This is italic text_
-
-~~Strikethrough~~
-
-
-## Blockquotes
-
-
-> Blockquotes can also be nested...
->> ...by using additional greater-than signs right next to each other...
-> > > ...or with spaces between arrows.
-
-
-## Lists
-
-Unordered
-
-+ Create a list by starting a line with `+`, `-`, or `*`
-+ Sub-lists are made by indenting 2 spaces:
-    - Marker character change forces new list start:
-        * Ac tristique libero volutpat at
-        + Facilisis in pretium nisl aliquet
-        - Nulla volutpat aliquam velit
-+ Very easy!
-
-Ordered
-
-1. Lorem ipsum dolor sit amet
-2. Consectetur adipiscing elit
-3. Integer molestie lorem at massa
-
-
-1. You can use sequential numbers...
-1. ...or keep all the numbers as `1.`
-
-Start numbering with offset:
-
-57. foo
-1. bar
-
-
-## Code
-
-Inline `code`
-
-Indented code
-
-    // Some comments
-    line 1 of code
-    line 2 of code
-    line 3 of code
-
-
-Block code "fences"
-
+### Installation
+- Clone the repository
+```bash
+git clone
 ```
-Sample text here...
+- Install the requirements
+```bash
+pip install -r requirements.txt
 ```
 
-Syntax highlighting
+We did run the project with **Python 3.9.7**, but feel free to try it with other versions.
 
-``` js
-var foo = function (bar) {
-  return bar++;
-};
-
-console.log(foo(5));
+### Disclaimer
+The project and the models included are mainly based on the [BiT-M-R50x1 model](https://tfhub.dev/google/bit/m-r50x1/1) and Tensorflow.<br>
+To speed up the training process, you should use your **GPU**!
+A guide to install Tensorflow with GPU support can be found [here](https://www.tensorflow.org/install/gpu).
+<br>If you want to use a GPU, install the requirements_gpu.txt file instead of the requirements.txt file.
+```bash
+pip install -r requirements_gpu.txt
 ```
+You **need** to install the CUDA Toolkit **v11.2** and cuDNN **v8.1** to use your GPU with Tensorflow.
 
-## Tables
+### Usage
+Basically just run the BiT-M-R50x1.ipynb or the CNN.ipynb notebook you cloned.
 
-| Option | Description |
-| ------ | ----------- |
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
+### Documentation
+The project is documented within the code.
 
-Right aligned columns
+#### How does the BiT-M-R50x1 model work?
+BiT-M-R50x1 is a version of the BiT (Big Transfer) model, which is a large-scale, deep learning model that has been trained on a massive dataset of images and texts from the internet. The BiT-M-R50x1 model is a variant of the BiT model that has been trained on the ImageNet and text from the internet to perform image classification and text classification tasks.
 
-| Option | Description |
-| ------:| -----------:|
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
+The BiT-M-R50x1 model is a convolutional neural network (CNN) that consists of multiple layers of interconnected nodes, or neurons. Each layer processes the input data and passes it on to the next layer for further processing. The layers at the beginning of the network extract low-level features from the input data, such as edges and shapes. As the data passes through the network, the layers extract increasingly complex and abstract features, such as objects and their relationships to each other.
 
+To classify an image using the BiT-M-R50x1 model, you would feed the image into the model and it would process the image through its layers. The output of the final layer is a prediction of the class that the image belongs to, based on the features extracted by the model. The BiT-M-R50x1 model has been trained on a large dataset of images, so it has learned to recognize a wide range of objects and concepts.
 
-## Links
+#### How does the CNN model work?
+A convolutional neural network (CNN) is a type of deep learning algorithm that is particularly well suited for image classification tasks. It is called a "convolutional" neural network because it uses a mathematical operation called convolution to process the input data.
 
-[link text](http://dev.nodeca.com)
+The basic structure of a CNN consists of an input layer, an output layer, and one or more hidden layers. The hidden layers are made up of a series of interconnected nodes, or neurons, that perform computations on the input data.
 
-[link with title](http://nodeca.github.io/pica/demo/ "title text!")
+In a CNN, the hidden layers are organized into a series of "convolutional" layers and "pooling" layers. The convolutional layers apply a series of filters to the input data, which extract different features from the data. The pooling layers reduce the dimensionality of the data by combining the output of the convolutional layers in a way that retains the most important information.
 
-Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
+To classify an image using a CNN, you would feed the image into the input layer of the network. The image would then be processed through the convolutional and pooling layers, and the output of the final layer would be a prediction of the class that the image belongs to. The CNN has been trained on a large dataset of images, so it has learned to recognize a wide range of objects and concepts based on the features extracted by the filters in the convolutional layers.
 
+For example, if you are training a CNN to classify images of dogs and cats, you would start by collecting a large dataset of images of dogs and cats. You would then use this dataset to train the CNN by feeding it the images and telling it which class each image belongs to. As the CNN processes the images, it will learn to recognize the features that are characteristic of dogs and cats, such as the shape of their noses or the patterns of their fur. Once the CNN is trained, you can use it to classify new images of dogs and cats by providing it with the images and having it predict the class of each image.
 
-## Images
+### Contributing
+Contributions are always welcome!<br>
+Feel free to open an issue or a pull request.
 
-![Minion](https://octodex.github.com/images/minion.png)
-![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
+### License
+This project is licensed under the GNU License - see the [LICENSE](https://github.com/jmne/FastFoodClassification/blob/main/LICENSE) file for details.
 
-Like links, Images also have a footnote style syntax
+### Acknowledgments
+- [Tensorflow](https://www.tensorflow.org/)
+- [Kaggle](https://www.kaggle.com/)
+- [BiT-M-R50x1](https://tfhub.dev/google/bit/m-r50x1/1)
 
-![Alt text][id]
+### References
 
-With a reference later in the document defining the URL location:
-
-[id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
-
-
-## Plugins
-
-The killer feature of `markdown-it` is very effective support of
-[syntax plugins](https://www.npmjs.org/browse/keyword/markdown-it-plugin).
-
-
-### [Emojies](https://github.com/markdown-it/markdown-it-emoji)
-
-> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
->
-> Shortcuts (emoticons): :-) :-( 8-) ;)
-
-see [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.
-
-
-### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)
-
-- 19^th^
-- H~2~O
-
-
-### [\<ins>](https://github.com/markdown-it/markdown-it-ins)
-
-++Inserted text++
-
-
-### [\<mark>](https://github.com/markdown-it/markdown-it-mark)
-
-==Marked text==
-
-
-### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)
-
-Footnote 1 link[^first].
-
-Footnote 2 link[^second].
-
-Inline footnote^[Text of inline footnote] definition.
-
-Duplicated footnote reference[^second].
-
-[^first]: Footnote **can have markup**
-
-    and multiple paragraphs.
-
-[^second]: Footnote text.
-
-
-### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)
-
-Term 1
-
-:   Definition 1
-with lazy continuation.
-
-Term 2 with *inline markup*
-
-:   Definition 2
-
-        { some code, part of Definition 2 }
-
-    Third paragraph of definition 2.
-
-_Compact style:_
-
-Term 1
-~ Definition 1
-
-Term 2
-~ Definition 2a
-~ Definition 2b
-
-
-### [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
-
-This is HTML abbreviation example.
-
-It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
-
-*[HTML]: Hyper Text Markup Language
-
-### [Custom containers](https://github.com/markdown-it/markdown-it-container)
-
-::: warning
-*here be dragons*
-:::
+[1]: https://github.com/google-research/big_transfer <br>
+[2]: https://arxiv.org/pdf/1912.11370.pdf <br>
+[3]: https://www.arxiv-vanity.com/papers/1603.05027/ <br>
+[4]: https://www.kaggle.com/datasets/utkarshsaxenadn/fast-food-classification-dataset <br>
