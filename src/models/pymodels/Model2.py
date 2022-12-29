@@ -16,6 +16,14 @@ from sklearn.metrics import confusion_matrix
 
 # Given a numpy array of images, resizes all of the images to the specified width and height and returns the standardized images
 def resize(images, width, height):
+    """
+    Resizes images to the specified width and height.
+
+    Args:
+        images: write your description
+        width: write your description
+        height: write your description
+    """
     # Initialize new np array for resized images
     new_images = np.empty((images.shape[0], height, width, 3), dtype=np.uint8) # Assumes RGB format
     for index, image in enumerate(images):
@@ -44,6 +52,14 @@ def resize(images, width, height):
 
 # Resizes the images and normalizes them
 def preprocess(images, width, height):
+    """
+    Resize and preprocess image.
+
+    Args:
+        images: write your description
+        width: write your description
+        height: write your description
+    """
     # Preprocessing: Resize
     print("Converting test images to size {} x {}...".format(width, height))
     start = time.time()
@@ -55,6 +71,11 @@ def preprocess(images, width, height):
 
 # The model
 def model():
+    """
+    Train the lenet5 model.
+
+    Args:
+    """
     # Specify size of image data to be inputted into model
     IM_WIDTH, IM_HEIGHT = (100, 100)
 
