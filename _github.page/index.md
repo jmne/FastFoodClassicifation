@@ -1,4 +1,3 @@
-# FastFoodClassicifation
 [![](https://img.shields.io/github/issues/jmne/FastFoodClassicifation?style=flat-square)](https://github.com/jmne/FastFoodClassification/issues)
 [![](https://img.shields.io/github/issues-pr/jmne/FastFoodClassicifation?style=flat-square)](https://github.com/jmne/FastFoodClassification/pulls)
 [![](https://img.shields.io/github/license/jmne/FastFoodClassicifation?style=flat-square)](https://github.com/jmne/FastFoodClassification/blob/main/LICENSE)
@@ -21,9 +20,7 @@ Image classification of Fast Food dishes with CNN and BiT-M-R50x1.
 
 ### Introduction
 Our idea is to identify fast food dishes from pictures.
-The Fast Food Classification data set we use contains images of different types of fast food.
-
-The dataset we used can be found [here](https://www.kaggle.com/datasets/utkarshsaxenadn/fast-food-classification-dataset).
+The Fast Food Classification dataset we use ([here](https://www.kaggle.com/datasets/utkarshsaxenadn/fast-food-classification-dataset)) contains images of different types of fast food.
 
 ### Installation
 - Clone the repository
