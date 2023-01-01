@@ -27,6 +27,7 @@ The dataset we used can be found [here](https://www.kaggle.com/datasets/utkarshs
 
 ### Video explanation
 [![Watch the video](https://img.youtube.com/vi/dRSQy73J_iM/maxresdefault.jpg)](https://youtu.be/dRSQy73J_iM)
+[here](https://youtu.be/dRSQy73J_iM)
 
 ### Installation
 - Clone the repository
