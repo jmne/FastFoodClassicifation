@@ -26,7 +26,7 @@ The Fast Food Classification data set we use contains images of different types 
 The dataset we used can be found [here](https://www.kaggle.com/datasets/utkarshsaxenadn/fast-food-classification-dataset).
 
 ### Video explanation
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dRSQy73J_iM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Watch the video](https://img.youtube.com/vi/dRSQy73J_iM/maxresdefault.jpg)](https://youtu.be/dRSQy73J_iM)
 
 ### Installation
 - Clone the repository
